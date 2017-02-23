@@ -1,0 +1,23 @@
+{
+  "name": "lamiaoy/httpclient",
+  "licenses": ["Lamia Licence"],
+  "type": "library",
+  "description": "Wrapper for GuzzleHttp",
+  "authors": [
+    {
+      "name":"Andrzej Wojtys"
+    },
+    {
+      "name":"Lamia Oy"
+    }
+  ],
+  "require": {
+    "guzzlehttp/guzzle": "6.*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~5.7"
+  },
+  "autoload": {
+    "psr-0": { "Lamia\\HttpClient\\": "src/" }
+  }
+}
