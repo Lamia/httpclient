@@ -133,9 +133,9 @@ class HttpClient implements HttpClientInterface
         array $headers = array(),
         array $options = array()
     ) {
-        $request = $this->createRequest($httpMethod, $path, $body, $headers, $options);
+        $request = $this->createRequest($httpMethod, $path, $body, $headers);
         try {
-            $response = $this->client->send($request);
+            $response = $this->client->send($request, $options);
         } catch (\LogicException $e) {
             throw new ErrorException($e->getMessage(), $e->getCode(), $e);
         } catch (\RuntimeException $e) {
@@ -172,15 +172,13 @@ class HttpClient implements HttpClientInterface
         $httpMethod,
         $path,
         $body = null,
-        array $headers = array(),
-        array $options
+        array $headers = array()
     ) {
         return new Request(
             $httpMethod,
             $path,
             array_merge($this->headers, $headers),
-            $body,
-            $options
+            $body
         );
     }
 }
