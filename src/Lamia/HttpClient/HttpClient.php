@@ -21,7 +21,7 @@ class HttpClient implements HttpClientInterface
 
     protected $options = array(
         'user_agent' => 'lamia-http-request',
-        'timeout' => 10
+        'timeout' => 20
     );
 
     /**
