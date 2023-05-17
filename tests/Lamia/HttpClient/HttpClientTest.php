@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Lamia\HttpClient;
 
@@ -23,14 +24,14 @@ class HttpClientTest extends TestCase
     public function testDummyGetRequestWithParams()
     {
         $newInstance = new HttpClient(self::TEST_URL);
-        $result = json_decode($newInstance->get('posts', array('userId' => 2))->getBody()->getContents());
+        $result = json_decode($newInstance->get('posts', ['userId' => 2])->getBody()->getContents());
         $this->assertEquals(2, $result[1]->userId);
     }
 
     public function testDummyPostRequest()
     {
         $newInstance = new HttpClient(self::TEST_URL);
-        $result = json_decode($newInstance->post('posts', json_encode(array('title' => 'test', 'body' => 'blabla', 'userId' => 1)))->getBody()->getContents());
+        $result = json_decode($newInstance->post('posts', json_encode(['title' => 'test', 'body' => 'blabla', 'userId' => 1]))->getBody()->getContents());
 
         $this->assertNotEmpty($result->id);
     }
@@ -38,7 +39,7 @@ class HttpClientTest extends TestCase
     public function testDummyPutRequest()
     {
         $newInstance = new HttpClient(self::TEST_URL);
-        $result = json_decode($newInstance->put('posts/1', json_encode(array('id' => 1, 'title' => 'test', 'body' => 'blabla', 'userId' => 1)))->getBody()->getContents());
+        $result = json_decode($newInstance->put('posts/1', json_encode(['id' => 1, 'title' => 'test', 'body' => 'blabla', 'userId' => 1]))->getBody()->getContents());
 
         $this->assertEquals(1, $result->id);
     }

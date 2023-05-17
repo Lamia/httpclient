@@ -1,3 +1,10 @@
 /.idea
 /composer.lock
 /vendor
+/build
+/test-reports
+!.editorconfig
+!.gitattributes
+!.gitignore
+!.gitkeep
+!.php-cs-fixer.dist.php

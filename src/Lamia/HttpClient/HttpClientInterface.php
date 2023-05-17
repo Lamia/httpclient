@@ -2,8 +2,11 @@
 
 namespace Lamia\HttpClient;
 
-use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Exception\GuzzleException;
+use Lamia\HttpClient\Exception\ErrorException;
 use Lamia\HttpClient\Exception\InvalidArgumentException;
+use Lamia\HttpClient\Exception\RuntimeException;
+use Psr\Http\Message\ResponseInterface;
 
 interface HttpClientInterface
 {
@@ -14,9 +17,9 @@ interface HttpClientInterface
      * @param array  $parameters GET Parameters
      * @param array  $headers    Reconfigure the request headers for this call only
      *
-     * @return Response
+     * @return ResponseInterface
      */
-    public function get($path, array $parameters = array(), array $headers = array());
+    public function get($path, array $parameters = [], array $headers = []);
     /**
      * Send a POST request
      *
@@ -24,9 +27,9 @@ interface HttpClientInterface
      * @param mixed  $body    Request body
      * @param array  $headers Reconfigure the request headers for this call only
      *
-     * @return Response
+     * @return ResponseInterface
      */
-    public function post($path, $body = null, array $headers = array());
+    public function post($path, $body = null, array $headers = []);
     /**
      * Send a PATCH request
      *
@@ -35,9 +38,9 @@ interface HttpClientInterface
      * @param array  $headers Reconfigure the request headers for this call only
      *
      * @internal param array $parameters Request body
-     * @return Response
+     * @return ResponseInterface
      */
-    public function patch($path, $body = null, array $headers = array());
+    public function patch($path, $body = null, array $headers = []);
     /**
      * Send a PUT request
      *
@@ -45,9 +48,9 @@ interface HttpClientInterface
      * @param mixed  $body    Request body
      * @param array  $headers Reconfigure the request headers for this call only
      *
-     * @return Response
+     * @return ResponseInterface
      */
-    public function put($path, $body, array $headers = array());
+    public function put($path, $body, array $headers = []);
     /**
      * Send a DELETE request
      *
@@ -55,9 +58,9 @@ interface HttpClientInterface
      * @param mixed  $body    Request body
      * @param array  $headers Reconfigure the request headers for this call only
      *
-     * @return Response
+     * @return ResponseInterface
      */
-    public function delete($path, $body = null, array $headers = array());
+    public function delete($path, $body = null, array $headers = []);
     /**
      * Send a request to the server, receive a response,
      * decode the response and returns an associative array
@@ -67,23 +70,28 @@ interface HttpClientInterface
      * @param string $httpMethod HTTP method to use
      * @param array  $headers    Request headers
      *
-     * @return Response
+     * @return ResponseInterface
+     *
+     * @throws ErrorException
+     * @throws RuntimeException
+     * @throws GuzzleException
      */
-    public function request($path, $body, $httpMethod = 'GET', array $headers = array());
+    public function request($path, $body, $httpMethod = 'GET', array $headers = []);
     /**
      * Change an option value.
      *
-     * @param string $name  The option name
-     * @param mixed  $value The value
+     * @param string $name The option name
+     * @param mixed $value The value
      *
      * @throws InvalidArgumentException
+     * 
      * @return void
      */
     public function setOption($name, $value);
     /**
      * Set HTTP headers
      *
-     * @param  array $headers
+     * @param array<string, string|int|float> $headers
      * @return void
      */
     public function setHeaders(array $headers);

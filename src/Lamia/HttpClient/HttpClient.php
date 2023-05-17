@@ -15,7 +15,7 @@ class HttpClient implements HttpClientInterface
      */
     protected $client;
 
-    protected $headers = array();
+    protected $headers = [];
     private $lastResponse;
     private $lastRequest;
 
@@ -29,7 +29,7 @@ class HttpClient implements HttpClientInterface
      * @param array           $options
      * @param ClientInterface $client
      */
-    public function __construct($baseUrl, array $options = array(), ClientInterface $client = null)
+    public function __construct($baseUrl, array $options = [], ClientInterface $client = null)
     {
         $this->options = array_merge($this->options, $options);
         $this->options['base_uri'] = $baseUrl;
@@ -66,7 +66,7 @@ class HttpClient implements HttpClientInterface
     public function clearHeaders()
     {
         $this->headers = array(
-            'User-Agent' => sprintf('%s', $this->options['user_agent']),
+            'User-Agent' => \sprintf('%s', $this->options['user_agent']),
         );
     }
 
@@ -74,7 +74,7 @@ class HttpClient implements HttpClientInterface
     /**
      * {@inheritDoc}
      */
-    public function get($path, array $parameters = array(), array $headers = array())
+    public function get($path, array $parameters = [], array $headers = [])
     {
         $path .= '?'. http_build_query($parameters);
         return $this->request($path, null, 'GET', $headers);
@@ -83,7 +83,7 @@ class HttpClient implements HttpClientInterface
     /**
      * {@inheritDoc}
      */
-    public function post($path, $body = null, array $headers = array())
+    public function post($path, $body = null, array $headers = [])
     {
         if (!isset($headers['Content-Type'])) {
             $headers['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -95,7 +95,7 @@ class HttpClient implements HttpClientInterface
     /**
      * {@inheritDoc}
      */
-    public function patch($path, $body = null, array $headers = array())
+    public function patch($path, $body = null, array $headers = [])
     {
         if (!isset($headers['Content-Type'])) {
             $headers['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -107,7 +107,7 @@ class HttpClient implements HttpClientInterface
     /**
      * {@inheritDoc}
      */
-    public function delete($path, $body = null, array $headers = array())
+    public function delete($path, $body = null, array $headers = [])
     {
         return $this->request($path, $body, 'DELETE', $headers);
     }
@@ -115,7 +115,7 @@ class HttpClient implements HttpClientInterface
     /**
      * {@inheritDoc}
      */
-    public function put($path, $body, array $headers = array())
+    public function put($path, $body, array $headers = [])
     {
         if (!isset($headers['Content-Type'])) {
             $headers['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -130,8 +130,8 @@ class HttpClient implements HttpClientInterface
         $path,
         $body = null,
         $httpMethod = 'GET',
-        array $headers = array(),
-        array $options = array()
+        array $headers = [],
+        array $options = []
     ) {
         $request = $this->createRequest($httpMethod, $path, $body, $headers);
         try {
@@ -166,13 +166,13 @@ class HttpClient implements HttpClientInterface
      * @param string $httpMethod
      * @param string $path
      *
-     * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @return Request
      */
     protected function createRequest(
         $httpMethod,
         $path,
         $body = null,
-        array $headers = array()
+        array $headers = []
     ) {
         return new Request(
             $httpMethod,
