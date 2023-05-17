@@ -166,7 +166,7 @@ class HttpClient implements HttpClientInterface
      * @param string $httpMethod
      * @param string $path
      *
-     * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @return Request
      */
     protected function createRequest(
         $httpMethod,
