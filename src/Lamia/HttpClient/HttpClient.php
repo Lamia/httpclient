@@ -66,7 +66,7 @@ class HttpClient implements HttpClientInterface
     public function clearHeaders()
     {
         $this->headers = array(
-            'User-Agent' => sprintf('%s', $this->options['user_agent']),
+            'User-Agent' => \sprintf('%s', $this->options['user_agent']),
         );
     }
 

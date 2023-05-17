@@ -2,8 +2,11 @@
 
 namespace Lamia\HttpClient;
 
-use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Exception\GuzzleException;
+use Lamia\HttpClient\Exception\ErrorException;
 use Lamia\HttpClient\Exception\InvalidArgumentException;
+use Lamia\HttpClient\Exception\RuntimeException;
+use Psr\Http\Message\ResponseInterface;
 
 interface HttpClientInterface
 {
@@ -14,7 +17,7 @@ interface HttpClientInterface
      * @param array  $parameters GET Parameters
      * @param array  $headers    Reconfigure the request headers for this call only
      *
-     * @return Response
+     * @return ResponseInterface
      */
     public function get($path, array $parameters = [], array $headers = []);
     /**
@@ -24,7 +27,7 @@ interface HttpClientInterface
      * @param mixed  $body    Request body
      * @param array  $headers Reconfigure the request headers for this call only
      *
-     * @return Response
+     * @return ResponseInterface
      */
     public function post($path, $body = null, array $headers = []);
     /**
@@ -35,7 +38,7 @@ interface HttpClientInterface
      * @param array  $headers Reconfigure the request headers for this call only
      *
      * @internal param array $parameters Request body
-     * @return Response
+     * @return ResponseInterface
      */
     public function patch($path, $body = null, array $headers = []);
     /**
@@ -45,7 +48,7 @@ interface HttpClientInterface
      * @param mixed  $body    Request body
      * @param array  $headers Reconfigure the request headers for this call only
      *
-     * @return Response
+     * @return ResponseInterface
      */
     public function put($path, $body, array $headers = []);
     /**
@@ -55,7 +58,7 @@ interface HttpClientInterface
      * @param mixed  $body    Request body
      * @param array  $headers Reconfigure the request headers for this call only
      *
-     * @return Response
+     * @return ResponseInterface
      */
     public function delete($path, $body = null, array $headers = []);
     /**
@@ -67,23 +70,28 @@ interface HttpClientInterface
      * @param string $httpMethod HTTP method to use
      * @param array  $headers    Request headers
      *
-     * @return Response
+     * @return ResponseInterface
+     *
+     * @throws ErrorException
+     * @throws RuntimeException
+     * @throws GuzzleException
      */
     public function request($path, $body, $httpMethod = 'GET', array $headers = []);
     /**
      * Change an option value.
      *
-     * @param string $name  The option name
-     * @param mixed  $value The value
+     * @param string $name The option name
+     * @param mixed $value The value
      *
      * @throws InvalidArgumentException
+     * 
      * @return void
      */
     public function setOption($name, $value);
     /**
      * Set HTTP headers
      *
-     * @param  array $headers
+     * @param array<string, string|int|float> $headers
      * @return void
      */
     public function setHeaders(array $headers);
