@@ -16,7 +16,7 @@ interface HttpClientInterface
      *
      * @return Response
      */
-    public function get($path, array $parameters = array(), array $headers = array());
+    public function get($path, array $parameters = [], array $headers = []);
     /**
      * Send a POST request
      *
@@ -26,7 +26,7 @@ interface HttpClientInterface
      *
      * @return Response
      */
-    public function post($path, $body = null, array $headers = array());
+    public function post($path, $body = null, array $headers = []);
     /**
      * Send a PATCH request
      *
@@ -37,7 +37,7 @@ interface HttpClientInterface
      * @internal param array $parameters Request body
      * @return Response
      */
-    public function patch($path, $body = null, array $headers = array());
+    public function patch($path, $body = null, array $headers = []);
     /**
      * Send a PUT request
      *
@@ -47,7 +47,7 @@ interface HttpClientInterface
      *
      * @return Response
      */
-    public function put($path, $body, array $headers = array());
+    public function put($path, $body, array $headers = []);
     /**
      * Send a DELETE request
      *
@@ -57,7 +57,7 @@ interface HttpClientInterface
      *
      * @return Response
      */
-    public function delete($path, $body = null, array $headers = array());
+    public function delete($path, $body = null, array $headers = []);
     /**
      * Send a request to the server, receive a response,
      * decode the response and returns an associative array
@@ -69,7 +69,7 @@ interface HttpClientInterface
      *
      * @return Response
      */
-    public function request($path, $body, $httpMethod = 'GET', array $headers = array());
+    public function request($path, $body, $httpMethod = 'GET', array $headers = []);
     /**
      * Change an option value.
      *
